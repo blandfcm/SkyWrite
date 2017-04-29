@@ -21,7 +21,6 @@ start_time = time.time()
 
 score = 0
 lives = 3
-gameover = 0
 
 size = len(words)
 word_speed = 1*60 # everymultiple of 60 is second delay between words
@@ -73,6 +72,10 @@ def checkCorrect(attempt):
             return 1
     return 0
 
+def updateLives():
+    global lives
+    live = lives - 1
+
 def updateScore():
     global score
     score = int(score + ((time.time() - start_time) * 0.25) + 50)
@@ -80,10 +83,6 @@ def updateScore():
 def checkScore():
     global score
     global lives
-    global gameover
-
-    if lives <= 0:
-        gameover = 1
 
     score_label1 = myfont.render('Score', 0, (255,0,0))
     score_label2 = myfont.render(str(score), 0, (255,255,255))
@@ -92,7 +91,7 @@ def checkScore():
     lives_label2 = myfont.render(str(lives), 0, (255,255,255))
     
     screen.blit(score_label1,((screen.get_width()/2 - 200,0)))
-    screen.blit(score_label2,((screen.get_width()/2 - 190,60)))
+    screen.blit(score_label2,((screen.get_width()/2 - 160,60)))
 
     screen.blit(lives_label1,((screen.get_width()/2 + 200,0)))
     screen.blit(lives_label2,((screen.get_width()/2 + 240,60)))
@@ -105,14 +104,15 @@ def checkHeight():
         x,y = temp[i].position
         if(y > screen.get_height()):
             lives -= 1
-            temp[i].position = (x, 100)
+            temp[i].position = (x, 0)
 
-def drawScreen(deltat):
+def drawScreen():
     screen.fill((0,0,0)) #black background
-    screen_words.update(deltat)
-    pygame.draw.rect(screen, (0,0,255), [0, 0, screen.get_width(), 100], 2)
+    pygame.draw.rect(screen, (0,0,255), [0, 0, screen.get_width(), 120])
+    pygame.draw.rect(screen, (0,0,0), [0, 105, 140, 5])
 
-while gameover == 0:
+
+while 1:
     # USER INPUT
     deltat = clock.tick(60)
      
@@ -200,21 +200,9 @@ while gameover == 0:
             sys.exit()
 
    
-    drawScreen(deltat)
     checkHeight()
     checkScore()
-
+    drawScreen()
 
     pygame.display.flip();
 
-
-while gameover:
-    for event in pygame.event.get():
-        if event.type == QUIT:
-            pygame.quit()
-            sys.exit()
-
-        if event.type == KEYDOWN:
-            if event.key == K_ESCAPE:
-                pygame.quit()
-                sys.exit()

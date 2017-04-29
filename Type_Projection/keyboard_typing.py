@@ -21,17 +21,15 @@ class Keyboard_TypingSprite(pygame.sprite.Sprite):
         else:
             startX = ((screen.get_width()/2) + ((column-11)*font_size/2))
 
-        self.position = (startX, 0);
+        self.position = (startX, 100);
 
     def update(self, deltat):
         x, y = self.position
           
         y += 1
        
-        if y > screen.get_height():
-            y = 0
+        #if y > screen.get_height():
+            #y = 0
 
         self.position = (x,y)
         screen.blit(self.label, (x,y))
-
-        #deletes the sprite if it is offscreen to be efficient
