@@ -1,6 +1,6 @@
 # INTIALIZATION
 
-import pygame, math, sys, time
+import pygame, math, sys, time, os
 from pygame.locals import *
 from keyboard_typing import * 
 from random import *
@@ -13,10 +13,11 @@ clock = pygame.time.Clock();
 myfont = pygame.font.SysFont("None", 60)
 
 #Opens a text file for reading
-my_file = open("words.txt", "r")
+#Words from text file are 6-letter words filtered from 
+#https://github.com/first20hours/google-10000-english/blob/master/google-10000-english-no-swears.txt
+my_file = open('words.txt', "r")
 words = my_file.read().splitlines() # fixes \n character for testing
 my_file.close()
-
 start_time = time.time()
 
 score = 0
@@ -65,17 +66,19 @@ def addToWord(word, char):
 def checkCorrect(attempt):
     for i in range (0,len(words_on_screen)):
         if attempt == words_on_screen[i]:
+            updateScore(len(words_on_screen[i]))
+
             temp = screen_words.sprites()
             screen_words.remove(temp[i])
             del words_on_screen[i]
 
-            updateScore()
             return 1
     return 0
 
-def updateScore():
+def updateScore(length):
     global score
-    score = int(score + ((time.time() - start_time) * 0.25) + 50)
+    score = score + 10 * length
+    #score = int(score + ((time.time() - start_time) * 0.25) + 10 * length)
 
 def checkScore():
     global score

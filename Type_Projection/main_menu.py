@@ -1,6 +1,6 @@
 # INTIALIZATION
 
-import pygame, math, sys, time
+import pygame, math, sys, time, os
 from pygame.locals import *
 import subprocess
 
@@ -45,7 +45,7 @@ def selectGame():
     global selection
     
     if arrowHeight == screen.get_height()/2 - 120:
-        import typing.py 
+        import typing.py
     elif arrowHeight == screen.get_height()/2 - 60:
         import spam.py 
     elif arrowHeight == screen.get_height()/2:
