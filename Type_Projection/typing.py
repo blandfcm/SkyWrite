@@ -4,6 +4,7 @@ import pygame, math, sys, time, os
 from pygame.locals import *
 from keyboard_typing import * 
 from random import *
+from input_triggered_matrix import *
 
 pygame.init()
 
@@ -53,6 +54,7 @@ def getWord():
     return new_Word
 
 def addToWord(word, char):
+    global score
     "adds a character to existing passed in string"
     
     typed_word = word 
@@ -60,6 +62,8 @@ def addToWord(word, char):
         typed_word = typed_word[0:-1]
     else:
         typed_word += char
+
+    input_triggered_matrix.main(typed_word, score)
 
     return typed_word 
 
