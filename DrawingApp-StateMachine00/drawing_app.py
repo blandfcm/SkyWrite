@@ -64,12 +64,12 @@ class Select(State):
         user_input = raw_input("Select shape: dot [0] | line [1] | square [2] | Clear Canvas [9]")
         if user_input == 'QUIT':
             return DrawingApp.end_program
-#        elif user_input == 'rainbow':
-#            if secret_mode:
-#                secret_mode = 0
-#            else:
-#                secret_mode = 1
-#            return DrawingApp.select
+        elif user_input == 'rainbow':
+            if secret_mode:
+                secret_mode = 0
+            else:
+                secret_mode = 1
+            return DrawingApp.select
         elif int(user_input) == 0:
             print("You choose [dot]")
             shape_choosen = int(user_input)
